@@ -1,0 +1,62 @@
+From c8878e51f522762d86b1e7ca1a00732e0b81cc6e Mon Sep 17 00:00:00 2001
+From: Attila Gluck <gluck.attila.bela@gmail.com>
+Date: Mon, 24 Aug 2020 21:29:13 +0200
+Subject: [PATCH] suckless.org like build system
+
+---
+ .gitignore                   | 1 +
+ Makefile                     | 6 +++---
+ blocks.def.h => config.def.h | 0
+ dwmblocks.c                  | 2 +-
+ 4 files changed, 5 insertions(+), 4 deletions(-)
+ rename blocks.def.h => config.def.h (100%)
+
+diff --git a/.gitignore b/.gitignore
+index b6605b4..f9a53c2 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,5 +1,6 @@
+ # Custom blocks file
+ blocks.h
++config.h
+ 
+ # Prerequisites
+ *.d
+diff --git a/Makefile b/Makefile
+index 8b3a30e..1ec37bf 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,10 +1,10 @@
+ PREFIX ?= /usr/local
+ CC ?= cc
+ 
+-output: dwmblocks.c blocks.def.h blocks.h
++output: dwmblocks.c config.def.h config.h
+ 	${CC} `pkg-config --cflags x11 --libs x11` dwmblocks.c -o dwmblocks
+-blocks.h:
+-	cp blocks.def.h $@
++config.h:
++	cp config.def.h $@
+ 
+ 
+ clean:
+diff --git a/blocks.def.h b/config.def.h
+similarity index 100%
+rename from blocks.def.h
+rename to config.def.h
+diff --git a/dwmblocks.c b/dwmblocks.c
+index 5abd10d..d245a2e 100644
+--- a/dwmblocks.c
++++ b/dwmblocks.c
+@@ -36,7 +36,7 @@ void statusloop();
+ void termhandler();
+ 
+ 
+-#include "blocks.h"
++#include "config.h"
+ 
+ static Display *dpy;
+ static int screen;
+-- 
+2.28.0
+
